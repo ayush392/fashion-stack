@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "please provide a username"],
       unique: true,
     },
+    account: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Account",
+    },
   },
   {
     timestamps: true,

@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import userModel from "@/models/user.model";
 import connectDb from "@/config/db";
+import accountModel from "@/models/account.model";
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,6 +24,11 @@ export async function POST(request: NextRequest) {
       password,
       username,
     });
+
+    const newAccount = await accountModel.create({ user: newUser._id });
+    // console.log(newAccount, "newAccount");
+    newUser.account = newAccount._id;
+    await newUser.save();
 
     return NextResponse.json({
       message: "user created successfully",
