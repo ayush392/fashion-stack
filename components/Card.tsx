@@ -17,7 +17,7 @@ function Card({ product, i }: any) {
       onClick={() => router.push(`/products/${product._id}`)}
     >
       <Image
-        className="w-full h-auto"
+        className="w-full h-[225px] sm:h-[275px] lg:h-[325px] "
         src={product.imageUrl}
         alt={product.title}
         height={800}

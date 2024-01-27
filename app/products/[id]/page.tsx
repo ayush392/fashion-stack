@@ -2,6 +2,11 @@
 import connect from "@/config/db";
 import productModel from "@/models/product.model";
 import Image from "next/image";
+import Button from "@/components/Button";
+import Size from "@/components/Size";
+import Quantity from "@/components/Quantity";
+import accountModel from "@/models/account.model";
+import { getUserId } from "@/utils/productData";
 
 // async function updateColor(formData: any) {
 //   "use server";
@@ -18,6 +23,24 @@ import Image from "next/image";
 async function SingleProduct({ params }: any) {
   await connect();
   const res = await productModel.findOne({ _id: params.id });
+  const userId = await getUserId();
+
+  const inCart =
+    userId === ""
+      ? 0
+      : await accountModel.countDocuments({
+          user: userId,
+          "cart.product": params.id,
+        });
+
+  const inWishlist =
+    userId === ""
+      ? 0
+      : await accountModel.countDocuments({
+          user: userId,
+          "wishlist.product": params.id,
+        });
+
   const product = await JSON.parse(JSON.stringify(res));
 
   let rupee = new Intl.NumberFormat("en-IN", {
@@ -63,25 +86,22 @@ async function SingleProduct({ params }: any) {
           </div>
 
           <div className="flex my-3 md:my-4 lg:my-5 gap-3">
-            {product.sizes.map((size: any, i: number) => {
-              return (
-                <div
-                  key={i}
-                  className="text-gray-700 cursor-pointer border min-w-fit size-10 md:size-11 lg:size-12 p-3 rounded-full flex justify-center items-center hover:text-green-500 hover:border-green-500"
-                >
-                  <p className=" font-bold md:text-lg">{size}</p>
-                </div>
-              );
-            })}
+            <Size sizes={product.sizes} />
           </div>
 
+          <Quantity />
+
           <div className="flex gap-3 my-3 md:my-4 lg:my-5">
-            <button className="w-full font-semibold px-3 py-2 border rounded-lg hover:border-black">
-              Wishlist
-            </button>
-            <button className="w-full font-semibold px-3 py-2 md:py-3 bg-green-600 hover:bg-green-700 text-white border rounded-lg">
-              Add to Cart
-            </button>
+            <Button
+              btnName={inWishlist ? "Go to Wishlist" : "Add to Wishlist"}
+              action={inWishlist ? "gotoWishlist" : "addToWishlist"}
+              clsName="w-full font-semibold px-3 py-2 border rounded-lg hover:border-black"
+            />
+            <Button
+              btnName={inCart ? "Go to Cart" : "Add to Cart"}
+              action={inCart ? "goToCart" : "addToCart"}
+              clsName="w-full font-semibold px-3 py-2 md:py-3 bg-green-600 hover:bg-green-700 text-white border rounded-lg"
+            />
           </div>
         </div>
       </div>
