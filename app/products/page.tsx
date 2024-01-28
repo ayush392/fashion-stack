@@ -1,7 +1,9 @@
 import connect from "@/config/db";
 import productModel from "@/models/product.model";
-import Card from "@/components/Card";
+import Card from "@/components/cards/Card";
 import Filter from "@/components/Filter";
+import Pagination from "@/components/Pagination";
+import SortBy from "@/components/SortBy";
 
 async function Products({ searchParams }: any) {
   await connect();
@@ -78,14 +80,21 @@ async function Products({ searchParams }: any) {
   return (
     <div>
       <h1 className="text-xl md:text-2xl lg:text-3xl mb-4">Products</h1>
-      <Filter />
-      <div className="grid grid-cols-2 gap-1 sm:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-5 xl:gap-7">
-        {products.map((product: any, i: number) => {
-          return <Card key={i} product={product} i={i} />;
-        })}
+      <div className="flex">
+        <div>
+          <Filter />
+        </div>
+        <div className=" sm:mx-3 md:mx-5 lg:mx-6">
+          <SortBy />
+          <div className="pt-2 grid grid-cols-2 gap-1 sm:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-5 xl:gap-7">
+            {products.map((product: any, i: number) => {
+              return <Card key={i} product={product} i={i} />;
+            })}
+          </div>
+          <Pagination />
+        </div>
       </div>
-      {/* Pagination */}
-      {/* <div className="pt-3 my-3 text-lg border-t text-center">Pagination</div> */}
+
       <div className="pt-3 my-3 text-2xl border-t text-center font-bold">
         FOOTER
       </div>

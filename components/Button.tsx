@@ -1,8 +1,7 @@
 "use client";
-// import { useCallback } from "react";
-import { addToCart, getFilter, addToWishlist } from "@/utils/productData";
+import { addToCart, addToWishlist } from "@/utils/productData";
 import {
-  usePathname,
+  // usePathname,
   useParams,
   useSearchParams,
   useRouter,
@@ -10,7 +9,7 @@ import {
 
 function Button({ btnName, action, clsName }: any) {
   const params = useParams();
-  const pathname = usePathname();
+  //  const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -18,14 +17,15 @@ function Button({ btnName, action, clsName }: any) {
   const quantity = parseInt(searchParams.get("quantity") || "1");
   const size = searchParams.get("size");
 
-  function checkAndCall() {
+  async function checkAndCall() {
     switch (action) {
       case "getFilter":
-        getFilter();
+        // getFilter();
         break;
 
       case "addToWishlist":
-        addToWishlist(productId);
+        const wish = await addToWishlist(productId);
+        alert(wish);
         break;
 
       case "addToCart":
@@ -34,7 +34,9 @@ function Button({ btnName, action, clsName }: any) {
           alert("Please select a size");
           return;
         }
-        addToCart(productId, quantity, size);
+        // alert("Add to cart");
+        const cart = await addToCart(productId, quantity, size);
+        alert(cart);
         break;
 
       case "goToCart":

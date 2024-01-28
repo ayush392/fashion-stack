@@ -17,14 +17,14 @@ function Card({ product, i }: any) {
       onClick={() => router.push(`/products/${product._id}`)}
     >
       <Image
-        className="w-full h-[225px] sm:h-[275px] lg:h-[325px] "
+        className="w-full h-[225px] sm:h-[275px] lg:h-[325px]"
         src={product.imageUrl}
         alt={product.title}
         height={800}
         width={400}
       />
       <div className="px-2 py-1">
-        <p className=" font-semibold">{product.brand}</p>
+        <p className=" font-semibold truncate">{product.brand}</p>
         <p className=" text-xs text-slate-700 truncate">{product.title}</p>
         <div className="flex gap-1 text-xs lg:text-sm items-baseline">
           <p className=" text-sm lg:text-base font-bold">{`Rs. ${product.price}`}</p>
