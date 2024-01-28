@@ -43,7 +43,7 @@ function Register() {
 
   const generateOTP = async (e: any) => {
     e.preventDefault();
-    console.log(data);
+    // console.log(data);
     if (!data.email) return alert("Please enter email");
     try {
       const res = await fetch(
@@ -87,7 +87,7 @@ function Register() {
         }
       );
       const json = await res.json();
-      console.log(json);
+      // console.log(json);
       if (json.error) return false;
       return true;
     } catch (error: any) {

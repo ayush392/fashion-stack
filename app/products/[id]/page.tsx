@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import Size from "@/components/Size";
 import Quantity from "@/components/Quantity";
 import accountModel from "@/models/account.model";
-import { getUserId } from "@/utils/productData";
+import { getUserId } from "@/utils/cartController";
 
 // async function updateColor(formData: any) {
 //   "use server";

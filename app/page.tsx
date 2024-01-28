@@ -29,7 +29,7 @@ export default function Home() {
       const json = await res.json();
       if (json.status === 200) {
         setUser(json.user);
-        console.log(json.user);
+        // console.log(json.user);
       } else {
         window.location.href = "/login";
       }

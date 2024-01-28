@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getFilter } from "@/utils/productData";
+import { getFilter } from "@/utils/cartController";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 

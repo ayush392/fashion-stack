@@ -10,7 +10,7 @@ export default function Login() {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    console.log(email, password)
+    // console.log(email, password)
     try {
       const res = await fetch("/api/login", {
         method: "POST",

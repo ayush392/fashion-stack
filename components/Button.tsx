@@ -1,5 +1,6 @@
 "use client";
-import { addToCart, addToWishlist } from "@/utils/productData";
+import { addToCart } from "@/utils/cartController";
+import { addToWishlist } from "@/utils/wishlistController";
 import {
   // usePathname,
   useParams,

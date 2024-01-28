@@ -138,20 +138,3 @@ export async function updateCart(
     return (error as Error).message;
   }
 }
-
-export async function addToWishlist(productId: any) {
-  try {
-    await connect();
-    const userId = await getUserId();
-    if (!userId || !productId) {
-      throw new Error("Please login");
-    }
-    const data = await accountModel.findOne({ user: userId });
-    data.wishlist.push({ product: productId });
-    await data.save();
-    return "item added to wishlist";
-  } catch (error) {
-    console.log(error, "utils-addtoWishlist");
-    return (error as Error).message;
-  }
-}
