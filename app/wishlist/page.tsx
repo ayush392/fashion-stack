@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import Card from "@/components/cards/Card";
-import { addToCartFromWishlist, getWishlist } from "@/utils/wishlistController";
+import {
+  addToCartFromWishlist,
+  getWishlist,
+} from "@/utils/controller/wishlistController";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
