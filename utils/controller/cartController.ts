@@ -1,41 +1,28 @@
 "use server";
 import connect from "@/config/db";
-import productModel from "@/models/product.model";
-import userModel from "@/models/user.model";
-import { cookies } from "next/headers";
 import accountModel from "@/models/account.model";
+import { getUserId } from "../helper";
 
-// todo: getFilter
+// calcPrice
 // addToCart
 // getCart
 // removeFromCart
-// addToWishlist
+// updateCart
 
-export async function getUserId() {
-  let cookie = cookies().get("nextJsAuth");
-  return cookie ? cookie.value : "";
-}
-
-export async function getFilter(gender: any, category: any) {
-  await connect();
-  // console.log(gender, category, "utils");
-  let myFilterObj1: any = {};
-  let myFilterObj2: any = {};
-
-  if (gender) {
-    myFilterObj1.gender = gender;
-    myFilterObj2.gender = gender;
-  }
-
-  if (category) {
-    let catArr: string[] = category.split(",");
-    myFilterObj2.category = { $in: catArr };
-  }
-
-  const categories = await productModel.find(myFilterObj1).distinct("category");
-  const colors = await productModel.find(myFilterObj2).distinct("color");
-
-  return { categories, colors };
+async function calcPrice(data: any) {
+  let tPrice = 0,
+    mrp = 0,
+    discount = 0;
+  data.forEach((item: any) => {
+    tPrice += item.product.price * item.quantity;
+    mrp += item.product.mrp * item.quantity;
+    discount += mrp - tPrice;
+  });
+  return {
+    totalPrice: tPrice,
+    totalMrp: mrp,
+    totalDiscount: discount,
+  };
 }
 
 export async function addToCart(
@@ -83,8 +70,9 @@ export async function getCart() {
         select: "imageUrl title price mrp discount brand sizes",
       })
       .select("cart");
-    console.log(res, "res");
-    return res.cart;
+    const prices = await calcPrice(res.cart);
+    // console.log(res, "res");
+    return await JSON.parse(JSON.stringify({ cart: res.cart, prices }));
   } catch (error) {
     console.log(error);
     return (error as Error).message;
@@ -100,13 +88,20 @@ export async function removeFromCart(productId: any) {
       throw new Error("Invalid data");
     }
 
-    const update = await accountModel.findOneAndUpdate(
-      { user: userId },
-      { $pull: { cart: { product: productId } } },
-      { new: true }
-    );
-    console.log(update.cart, "update");
-    return "Product removed from cart";
+    const res = await accountModel
+      .findOneAndUpdate(
+        { user: userId },
+        { $pull: { cart: { product: productId } } },
+        { new: true }
+      )
+      .populate({
+        path: "cart.product",
+        select: "imageUrl title price mrp discount brand sizes",
+      })
+      .select("cart");
+    const prices = await calcPrice(res.cart);
+    // console.log(res, "res");
+    return await JSON.parse(JSON.stringify({ cart: res.cart, prices }));
   } catch (error) {
     console.log(error);
     return (error as Error).message;
@@ -126,13 +121,20 @@ export async function updateCart(
       throw new Error("Invalid data");
     }
 
-    const update = await accountModel.findOneAndUpdate(
-      { user: userId, "cart.product": productId },
-      { $set: { "cart.$.quantity": quantity, "cart.$.size": size } },
-      { new: true }
-    );
-    console.log(update.cart, "update");
-    return "Cart updated";
+    const res = await accountModel
+      .findOneAndUpdate(
+        { user: userId, "cart.product": productId },
+        { $set: { "cart.$.quantity": quantity, "cart.$.size": size } },
+        { new: true }
+      )
+      .populate({
+        path: "cart.product",
+        select: "imageUrl brand title price mrp discount sizes",
+      })
+      .select("cart");
+    const prices = await calcPrice(res.cart);
+    // console.log(res, "res");
+    return await JSON.parse(JSON.stringify({ cart: res.cart, prices }));
   } catch (error) {
     console.log(error);
     return (error as Error).message;
