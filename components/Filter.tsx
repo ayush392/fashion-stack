@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getFilter } from "@/utils/cartController";
+import { getFilter } from "@/utils/controller/productController";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
@@ -181,26 +181,6 @@ function Filter() {
       </div>
     </div>
 
-    // <div className="my-4 border">
-    //   <p>Filter</p>
-    //   <input
-    //     id="check"
-    //     type="checkbox"
-    //     value="black"
-    //     name="color"
-    //     onChange={handleChange}
-    //   />
-    //   <label htmlFor="check">Black</label>
-
-    //   <input
-    //     id="check2"
-    //     type="checkbox"
-    //     value="Men"
-    //     name="gender"
-    //     onChange={handleChange}
-    //   />
-    //   <label htmlFor="check2">Men</label>
-    // </div>
   );
 }
 
