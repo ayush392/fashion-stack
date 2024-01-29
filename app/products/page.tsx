@@ -91,7 +91,7 @@ async function Products({ searchParams }: any) {
               return <Card key={i} product={product} i={i} />;
             })}
           </div>
-          <Pagination />
+          <Pagination size={products.length} />
         </div>
       </div>
 

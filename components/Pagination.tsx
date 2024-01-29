@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Pagination() {
+function Pagination({ size }: any) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -34,6 +34,7 @@ function Pagination() {
         >{`< prev`}</button>
         <button
           className="text-blue-600 "
+          disabled={length < 15}
           onClick={() => {
             router.push(pathname + "?" + createQueryString("page", "+1"));
           }}
