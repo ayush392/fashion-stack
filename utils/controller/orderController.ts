@@ -52,10 +52,13 @@ export async function getOrders() {
       throw new Error("Please Login");
     }
 
-    const res = await orderModel.find({ user: userId }).populate({
-      path: "products.product",
-      select: "imageUrl title brand",
-    });
+    const res = await orderModel
+      .find({ user: userId })
+      .populate({
+        path: "products.product",
+        select: "imageUrl title brand",
+      })
+      .sort({ orderDate: -1 });
     return await JSON.parse(JSON.stringify(res));
   } catch (error) {
     console.log(error);

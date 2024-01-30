@@ -93,8 +93,7 @@ function Cart() {
                   address.map((data, i) => {
                     return (
                       <option value={i}>
-                        <p>{data.house + ", " + data.street}</p>
-                        <p>{data.city + ", " + data.state}</p>
+                        {`${data.house}, ${data.street}`}
                       </option>
                     );
                   })}

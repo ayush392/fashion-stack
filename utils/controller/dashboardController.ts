@@ -13,10 +13,13 @@ export async function getAllOrders() {
 
     //todo: check if admin
 
-    const res = await orderModel.find({}).populate({
-      path: "products.product",
-      select: "imageUrl title brand",
-    });
+    const res = await orderModel
+      .find({})
+      .populate({
+        path: "products.product",
+        select: "imageUrl title brand",
+      })
+      .sort({ orderDate: -1 });
     // console.log("orders", res);
     return await JSON.parse(JSON.stringify(res));
   } catch (error) {
