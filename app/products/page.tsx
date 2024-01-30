@@ -78,25 +78,18 @@ async function Products({ searchParams }: any) {
   // console.log(products);
 
   return (
-    <div>
-      <h1 className="text-xl md:text-2xl lg:text-3xl mb-4">Products</h1>
-      <div className="flex">
-        <div>
-          <Filter />
-        </div>
-        <div className=" sm:mx-3 md:mx-5 lg:mx-6">
-          <SortBy />
-          <div className="pt-2 grid grid-cols-2 gap-1 sm:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-5 xl:gap-7">
-            {products.map((product: any, i: number) => {
-              return <Card key={i} product={product} i={i} />;
-            })}
-          </div>
-          <Pagination size={products.length} />
-        </div>
+    <div className="max-w-7xl mx-auto flex">
+      <div>
+        <Filter />
       </div>
-
-      <div className="pt-3 my-3 text-2xl border-t text-center font-bold">
-        FOOTER
+      <div className=" sm:mx-3 md:mx-5 lg:mx-6">
+        <SortBy />
+        <div className="pt-2 grid grid-cols-2 gap-1 sm:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:gap-5 xl:gap-7">
+          {products.map((product: any, i: number) => {
+            return <Card key={i} product={product} i={i} />;
+          })}
+        </div>
+        <Pagination size={products.length} />
       </div>
     </div>
   );

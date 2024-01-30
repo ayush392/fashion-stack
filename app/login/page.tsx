@@ -6,7 +6,6 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const router = useRouter();
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -23,12 +22,9 @@ export default function Login() {
       const json = await res.json();
       // if (!res.ok) throw Error(json.message);
       if (json.status === 200) {
-        localStorage.setItem(
-          "token",
-          JSON.stringify({ _id: json.id, email: json.email })
-        );
         alert(json.message);
-        window.location.href = "/dashboard";
+        window.location.href = "/products";
+        return;
         // router.push("/dashboard");
       }
       alert(json.message);

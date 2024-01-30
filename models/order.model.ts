@@ -56,6 +56,10 @@ const orderSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    country: {
+      type: String,
+      default: "India",
+    },
     pincode: {
       type: Number,
       required: true,
@@ -64,6 +68,6 @@ const orderSchema = new mongoose.Schema({
 });
 
 const orderModel =
-  mongoose.models.Product || mongoose.model("Order", orderSchema);
+  mongoose.models.Order || mongoose.model("Order", orderSchema);
 
 export default orderModel;

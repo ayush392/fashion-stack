@@ -18,7 +18,7 @@ function Header() {
   const searchParams = useSearchParams();
   // console.log(useUserContext());
 
-  const x = [1, 2, 3];
+  // const x = [1, 2, 3];
 
   function isActive(path: string, name: string, value: string) {
     if (name === "" && value === "") {

@@ -34,7 +34,7 @@ function Pagination({ size }: any) {
         >{`< prev`}</button>
         <button
           className="text-blue-600 "
-          disabled={length < 15}
+          disabled={size < 15}
           onClick={() => {
             router.push(pathname + "?" + createQueryString("page", "+1"));
           }}
