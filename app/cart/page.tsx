@@ -1,12 +1,12 @@
 "use client";
 import { getCart } from "@/utils/controller/cartController";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import CartCard from "@/components/cards/CartCard";
 import { useRouter } from "next/navigation";
 import { getAddress } from "@/utils/controller/accountController";
 import { createOrder } from "@/utils/controller/orderController";
 
-function Cart() {
+function CartComp() {
   const [data, setData] = useState({
     cart: [],
     prices: { totalPrice: 0, totalMrp: 0, totalDiscount: 0 },
@@ -92,7 +92,7 @@ function Cart() {
                 {address.length > 0 &&
                   address.map((data, i) => {
                     return (
-                      <option value={i}>
+                      <option key={i} value={i}>
                         {`${data.house}, ${data.street}`}
                       </option>
                     );
@@ -143,4 +143,11 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default function Cart() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <CartComp />
+    </Suspense>
+  );
+}

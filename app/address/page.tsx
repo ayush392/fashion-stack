@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { addAddress } from "@/utils/controller/accountController";
 
-function Address() {
+function AddressComp() {
   const [data, setData] = useState({
     house: "",
     street: "",
@@ -102,4 +102,11 @@ function Address() {
   );
 }
 
-export default Address;
+export default function Address() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <AddressComp />
+    </Suspense>
+  );
+}

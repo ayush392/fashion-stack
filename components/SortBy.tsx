@@ -1,8 +1,8 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function SortBy() {
+function SortByComp() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -38,4 +38,11 @@ function SortBy() {
   );
 }
 
-export default SortBy;
+export default function SortBy() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <SortByComp />
+    </Suspense>
+  );
+}

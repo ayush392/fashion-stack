@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import {
   addToCartFromWishlist,
   getWishlist,
@@ -7,7 +7,7 @@ import {
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-function Wishlist() {
+function WishlistComp() {
   const [products, setProducts] = useState([]);
   const router = useRouter();
 
@@ -82,4 +82,11 @@ function Wishlist() {
   );
 }
 
-export default Wishlist;
+export default function Wishlist() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <WishlistComp />
+    </Suspense>
+  );
+}

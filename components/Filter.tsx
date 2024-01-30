@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { getFilter } from "@/utils/controller/productController";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
-function Filter() {
+function FilterComp() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -180,8 +180,14 @@ function Filter() {
         </div>
       </div>
     </div>
-
   );
 }
 
-export default Filter;
+export default function Filter() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <FilterComp />
+    </Suspense>
+  );
+}

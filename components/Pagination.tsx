@@ -1,8 +1,8 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Pagination({ size }: any) {
+function PaginationComp({ size }: any) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -44,4 +44,11 @@ function Pagination({ size }: any) {
   );
 }
 
-export default Pagination;
+export default function Pagination({ size }: any) {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <PaginationComp size={size} />
+    </Suspense>
+  );
+}

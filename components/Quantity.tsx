@@ -1,8 +1,8 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Quantity() {
+function QuantityComp() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -40,4 +40,11 @@ function Quantity() {
   );
 }
 
-export default Quantity;
+export default function Quantity() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <QuantityComp />
+    </Suspense>
+  );
+}

@@ -1,8 +1,8 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Size({ sizes }: { sizes: any }) {
+function SizeComp({ sizes }: { sizes: any }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -40,4 +40,11 @@ function Size({ sizes }: { sizes: any }) {
   );
 }
 
-export default Size;
+export default function Size({ sizes }: { sizes: any }) {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <SizeComp sizes={sizes} />
+    </Suspense>
+  );
+}

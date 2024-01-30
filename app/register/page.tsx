@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 
-function Register() {
+function RegisterComp() {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -192,4 +192,11 @@ function Register() {
   );
 }
 
-export default Register;
+export default function Register() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <RegisterComp />
+    </Suspense>
+  );
+}

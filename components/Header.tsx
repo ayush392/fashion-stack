@@ -1,6 +1,6 @@
 "use client";
 import { getUserId, logout } from "@/utils/helper";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname, useSearchParams } from "next/navigation";
 import { getSize } from "@/utils/helper";
@@ -10,7 +10,7 @@ import { getSize } from "@/utils/helper";
 // Women
 // wishlist, cart, logout || login, register
 
-function Header() {
+function HeaderComp() {
   const [isUser, setIsUser] = useState(false);
   const [sizes, setSizes] = useState({ cartSize: 0, wishlistSize: 0 });
   const router = useRouter();
@@ -121,4 +121,11 @@ function Header() {
   );
 }
 
-export default Header;
+export default function Header() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <HeaderComp />
+    </Suspense>
+  );
+}
