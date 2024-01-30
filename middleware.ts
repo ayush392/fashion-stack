@@ -6,11 +6,12 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   // console.log(pathname);
 
-  if (pathname === "/profile") {
-    if (cookie) {
+  if (pathname === "/dashboard") {
+    if (cookie && cookie.value === "65b49b13b3c5c942467ba8fa") {
+      // console.log(cookie.value);
       return NextResponse.next();
     } else {
-      return NextResponse.json({ message: "Unauthorised" }, { status: 401 });
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 
