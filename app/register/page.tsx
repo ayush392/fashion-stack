@@ -33,7 +33,7 @@ function RegisterComp() {
           JSON.stringify({ _id: json.id, email: json.email })
         );
         alert(json.message);
-        window.location.href = "/dashboard";
+        window.location.href = "/login";
       }
       alert(json.message);
     } catch (error: any) {

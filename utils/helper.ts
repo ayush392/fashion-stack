@@ -14,10 +14,20 @@ export async function logout() {
 }
 
 export async function getSize(id: any) {
-  await connect();
-  const res = await accountModel.findOne({ user: id }).select("cart wishlist");
-  // .select("account.cart account.wishlist");
+  try {
+    await connect();
+    const res = await accountModel
+      .findOne({ user: id })
+      .select("cart wishlist");
 
-  // console.log(res, "size");
-  return { cartSize: res.cart.length, wishlistSize: res.wishlist.length };
+    let cartSize = parseInt(res.cart.length);
+    let wishlistSize = parseInt(res.wishlist.length);
+
+    if (cartSize === undefined) cartSize = 0;
+    if (wishlistSize === undefined) wishlistSize = 0;
+
+    return { cartSize: cartSize, wishlistSize: wishlistSize };
+  } catch (error) {
+    return { cartSize: 0, wishlistSize: 0 };
+  }
 }

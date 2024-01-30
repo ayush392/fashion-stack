@@ -98,6 +98,13 @@ function CartComp() {
                     );
                   })}
               </select>
+              <button
+                onClick={() => router.push("/address")}
+                className="block border text-sm border-green-600 px-2 py-1 hover:border-green-700 font-medium rounded mt-2"
+              >
+                {" "}
+                Add new Address
+              </button>
             </div>
 
             {/* price info */}

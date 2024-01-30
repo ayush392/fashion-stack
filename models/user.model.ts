@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, "please provide an email"],
-      match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       unique: true,
     },
     password: {
@@ -20,6 +19,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "please provide a username"],
       unique: true,
+    },
+    role: {
+      type: String,
+      enum: ["Admin", "Buyer"],
+      default: "User",
     },
     account: {
       type: mongoose.Schema.Types.ObjectId,

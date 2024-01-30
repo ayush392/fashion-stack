@@ -37,13 +37,17 @@ function HeaderComp() {
   };
 
   const check = async () => {
-    const res = await getUserId();
-    if (res) {
-      const s = await getSize(res);
-      setSizes(s);
+    try {
+      const res = await getUserId();
+      if (res) {
+        const s = await getSize(res);
+        if (s) setSizes(s);
+      }
+      setIsUser(!!!(res === ""));
+    } catch (error) {
+      alert(error);
     }
-
-    setIsUser(!!!(res === ""));
+    
   };
   useEffect(() => {
     check();

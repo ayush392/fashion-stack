@@ -90,6 +90,6 @@ const accountSchema = new mongoose.Schema({
 // });
 
 const accountModel =
-  mongoose.models.Account || mongoose.model("Account", accountSchema);
+  mongoose.models?.Account || mongoose.model("Account", accountSchema);
 
 export default accountModel;
