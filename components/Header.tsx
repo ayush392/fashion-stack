@@ -62,7 +62,7 @@ function HeaderComp() {
           className="text-lg md:text-xl cursor-pointer"
           onClick={() => router.push("/")}
         >
-          eCommerce
+          FashionStack
         </h1>
         <div className="hidden md:flex md:gap-6 lg:gap-8">
           <h2
